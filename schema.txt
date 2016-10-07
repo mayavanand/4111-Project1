@@ -1,0 +1,91 @@
+CREATE TABLE Gene(
+gid SERIAL,
+gene_name text,
+phenotype text,
+PRIMARY KEY (gid)
+);
+
+CREATE TABLE Cytoband(
+cid SERIAL,
+cyto_name text,
+start_pos int,
+end_pos int,
+chrom int,
+rsid text NOT NULL,
+PRIMARY KEY (cid),
+);
+
+CREATE TABLE Variant(
+rsid text,
+chrom int,
+start_pos int,
+end_pos int,
+ref character,
+alt character,
+cid int NOT NULL,
+gid int,
+PRIMARY KEY (rsid),
+FOREIGN KEY (gid) REFERENCES Gene
+FOREIGN KEY (cid) REFERENCES Cytoband,
+    ON DELETE NO ACTION
+);
+
+
+ALTER TABLE cytoband ADD FOREIGN KEY (rsid) references Variant;
+
+CREATE TABLE Article(
+doi text,
+title text,
+first_author text,
+link text,
+rsid text, NOT NULL,
+PRIMARY KEY (doi),
+FOREIGN KEY (rsid) references Variant
+    ON DELETE NO ACTION
+);
+
+CREATE TABLE Relational_Groups(
+category text,
+rsid text,
+PRIMARY KEY (category, rsid),
+FOREIGN KEY (rsid) REFERENCES Variant
+);
+
+CREATE TABLE User(
+       email text,
+       password text,
+       PRIMARY KEY (email)
+);
+
+CREATE TABLE Researcher(
+email text,
+institution text,
+	    PRIMARY KEY (email),
+	    FOREIGN KEY (email) REFERENCES users
+);
+
+CREATE TABLE Casual(
+email text,
+      PRIMARY KEY (email),
+      FOREIGN KEY (email) REFERENCES users
+);
+
+CREATE TABLE WatchList_Created(
+       list_name text,
+       rsid text,
+       email text,
+       PRIMARY KEY(email, list_name, rsid),
+       FOREIGN KEY(email) REFERENCES User ON DELETE CASCADE,
+       FOREIGN KEY(rsid) REFERENCES Variant
+);
+
+--CREATE TABLE AlleleFreq(
+--       refFreq float,
+--       altFreq float,
+--       latitude text,
+--       longitude text,
+--       RSID text, 
+--       PRIMARY KEY (latitude, longitude, RSID),
+--       FOREIGN KEY (RSID) references Variant
+--           ON DELETE NO ACTION
+--);
