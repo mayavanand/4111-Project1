@@ -1,0 +1,3 @@
+wget http://hgdownload.soe.ucsc.edu/goldenPath/hg19/database/cytoBand.txt.gz
+gunzip cytoBand.txt.gz
+sed 's/chr//' cytoBand.txt > cytoBand-removechr.txt
