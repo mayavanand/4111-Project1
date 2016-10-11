@@ -10,14 +10,14 @@ cid SERIAL,
 cyto_name text,
 start_pos int,
 end_pos int,
-chrom varchar(2),
+chrom int,
 rsid text NOT NULL,
 PRIMARY KEY (cid)
 );
 
 CREATE TABLE Variant(
 rsid text,
-chrom varchar(2),
+chrom int,
 start_pos int,
 end_pos int,
 ref character,
