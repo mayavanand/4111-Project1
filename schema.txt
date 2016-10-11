@@ -7,11 +7,11 @@ PRIMARY KEY (gid)
 
 CREATE TABLE Cytoband(
 cid SERIAL,
-cyto_name text,
+chrom varchar(2),
 start_pos int,
 end_pos int,
-chrom varchar(2),
-rsid text NOT NULL,
+cyto_name text,
+gie_stain text,
 PRIMARY KEY (cid)
 );
 
