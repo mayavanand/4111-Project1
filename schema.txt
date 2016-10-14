@@ -1,5 +1,8 @@
 CREATE TABLE Gene(
 gid SERIAL,
+chrom varchar(2),
+start_pos int,
+end_pos int,
 gene_name text,
 phenotype text,
 PRIMARY KEY (gid)
